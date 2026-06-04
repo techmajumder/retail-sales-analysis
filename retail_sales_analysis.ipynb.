@@ -78,35 +78,34 @@
     "print(df.head())\n",
     "print(df.info())\n",
     "\n",
-    "# -------------------------------\n",
+    
     "# 1. Remove duplicates\n",
     "df = df.drop_duplicates()\n",
     "\n",
-    "# -------------------------------\n",
+    
     "# 2. Handle missing values\n",
     "print(df.isnull().sum())\n",
     "\n",
     "# Fill missing discount with 0\n",
     "df['Discount Applied'] = df['Discount Applied'].fillna(0)\n",
     "\n",
-    "# -------------------------------\n",
+   
     "# 3. Convert date column\n",
     "df['Transaction Date'] = pd.to_datetime(df['Transaction Date'])\n",
     "\n",
-    "# -------------------------------\n",
+ \
     "# 4. Fix column names (clean format)\n",
     "df.columns = df.columns.str.strip().str.lower().str.replace(\" \", \"_\")\n",
-    "\n",
-    "# -------------------------------\n",
+   
     "# 5. Standardize text columns\n",
     "df['category'] = df['category'].str.lower().str.strip()\n",
     "df['payment_method'] = df['payment_method'].str.lower().str.strip()\n",
     "\n",
-    "# -------------------------------\n",
+
     "# 6. Create new column (total_spent check)\n",
     "df['calculated_total'] = df['price_per_unit'] * df['quantity']\n",
     "\n",
-    "# -------------------------------\n",
+  
     "# 7. Save cleaned dataset\n",
     "df.to_csv(\"cleaned_retail_data.csv\", index=False)\n",
     "\n",
@@ -164,11 +163,11 @@
     "import pandas as pd\n",
     "import matplotlib.pyplot as plt\n",
     "\n",
-    "# -------------------------------\n",
+    
     "# CLEAN COLUMN NAMES (VERY IMPORTANT)\n",
     "df.columns = df.columns.str.strip().str.lower().str.replace(\" \", \"_\")\n",
     "\n",
-    "# -------------------------------\n",
+   
     "# 1. Sales by Category\n",
     "category_sales = df.groupby('category')['total_spent'].sum().sort_values()\n",
     "\n",
@@ -180,7 +179,7 @@
     "plt.xticks(rotation=45)\n",
     "plt.show()\n",
     "\n",
-    "# -------------------------------\n",
+    
     "# 2. Monthly Sales Trend\n",
     "df['transaction_date'] = pd.to_datetime(df['transaction_date'])\n",
     "df['month'] = df['transaction_date'].dt.to_period('M')\n",
@@ -194,7 +193,7 @@
     "plt.ylabel(\"Sales\")\n",
     "plt.show()\n",
     "\n",
-    "# -------------------------------\n",
+  
     "# 3. Payment Method Distribution\n",
     "payment_counts = df['payment_method'].value_counts()\n",
     "\n",
@@ -204,7 +203,7 @@
     "plt.ylabel(\"\")\n",
     "plt.show()\n",
     "\n",
-    "# -------------------------------\n",
+   
     "# 4. Top 5 Products (FIXED ✅)\n",
     "\n",
     "top_products = df.groupby('item')['quantity'].sum().sort_values(ascending=False).head(5)\n",
